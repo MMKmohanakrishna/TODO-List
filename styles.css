@@ -253,6 +253,7 @@ button, .clickable{ cursor: pointer; }
   gap: 1rem;
   padding: 0.85rem 1.6rem;
   background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
 }
@@ -1102,7 +1103,7 @@ textarea.export-box{ width: 100%; min-height: 140px; font-family: "IBM Plex Mono
   .sidebar{ display: none; }
   .fab{ display: flex; bottom: calc(64px + env(safe-area-inset-bottom) + 0.8rem); }
   .bottom-nav{ display: block; }
-  .filter-row{ flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.2rem; -webkit-overflow-scrolling: touch; }
+  .filter-row{ flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.2rem; }
   .filter-row .chip{ flex-shrink: 0; }
   .filter-row.tools-row{ flex-wrap: wrap; overflow-x: visible; }
   .search-kbd{ display: none; }
