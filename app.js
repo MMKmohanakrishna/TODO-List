@@ -2068,8 +2068,7 @@ function wireGlobalEvents(){
       !title ? 'Please give this task a title.' :
       !category ? 'Please choose a category.' :
       !priority ? 'Please choose a priority.' :
-      !dueDate ? 'Please set a due date.' :
-      !dueTime ? 'Please set a due time.' : null;
+      !dueDate ? 'Please set a due date.' : null;
     if (missing){ errEl.classList.add('visible'); errEl.textContent = missing; return; }
     errEl.classList.remove('visible');
     var data = {
