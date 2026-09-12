@@ -920,13 +920,18 @@ label{ font-size: 0.76rem; font-weight: 600; color: var(--text-soft); }
   flex-shrink: 0;
 }
 .habit-check svg{ width: 14px; height: 14px; stroke-width: 3; }
-.habit-streak{ display: inline-flex; align-items: center; gap: 0.25rem; }
 .habit-row.done .habit-check{ border-color: var(--success); background: var(--success); color: #fff; }
-.habit-name{ font-weight: 700; font-size: 0.9rem; }
+.habit-name{ font-weight: 700; font-size: 0.9rem; flex: 1; min-width: 0; display: inline-flex; align-items: center; gap: 0.4rem; }
 .habit-row.done .habit-name{ color: var(--text-soft); }
-.habit-streak{ margin-left: auto; font-size: 0.78rem; color: var(--gold); font-weight: 700; white-space: nowrap; }
-.habit-remove{ background: none; border: none; color: var(--text-mute); }
-.habit-remove:hover{ color: var(--danger); }
+.habit-streak{ display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.78rem; color: var(--gold); font-weight: 700; white-space: nowrap; }
+.habit-actions{ display: flex; align-items: center; gap: 0.15rem; margin-left: auto; }
+.icon-btn-sm{
+  background: none; border: none; color: var(--text-mute);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 6px; flex-shrink: 0;
+}
+.icon-btn-sm:hover{ background: var(--surface-2); color: var(--text); }
+.icon-btn-sm[data-habitremove]:hover{ color: var(--danger); background: var(--danger-tint); }
 
 /* ==========================================================================
    Goals

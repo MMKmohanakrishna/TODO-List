@@ -40,6 +40,7 @@ var ICON_PATHS = {
   bell: '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
   x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
   'more-horizontal': '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+  pencil: '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/>',
   'chevron-left': '<path d="m15 18-6-6 6-6"/>',
   'chevron-right': '<path d="m9 18 6-6-6-6"/>',
   plus: '<path d="M5 12h14"/><path d="M12 5v14"/>'
@@ -716,6 +717,11 @@ function toggleHabitToday(id){
   persistHabits();
 }
 function deleteHabit(id){ App.habits = App.habits.filter(function(h){return h.id!==id;}); persistHabits(); }
+function updateHabit(id, patch){
+  var h = App.habits.find(function(x){return x.id===id;}); if(!h) return;
+  Object.assign(h, patch);
+  persistHabits();
+}
 
 /* ==========================================================================
    Goals
@@ -1712,25 +1718,36 @@ function renderHabitsView(){
     var row=document.createElement('div'); row.className='habit-row'+(done?' done':'');
     row.innerHTML = '<button type="button" class="habit-check" data-habit="'+h.id+'" aria-label="Toggle habit for today">'+svgIcon('check')+'</button><span class="habit-name">'+glyphHtml(h.icon,'icn-sm','sprout')+' '+escapeHtml(h.name)+'</span>'+
       (h.streak>0? '<span class="habit-streak">'+iconSpan('flame','icn-xs')+' '+h.streak+'</span>':'')+
-      '<button type="button" class="habit-remove" data-habitremove="'+h.id+'" aria-label="Remove habit">'+svgIcon('x')+'</button>';
+      '<div class="habit-actions">'+
+        '<button type="button" class="icon-btn-sm" data-habitedit="'+h.id+'" aria-label="Edit habit">'+iconSpan('pencil','icn-sm')+'</button>'+
+        '<button type="button" class="icon-btn-sm" data-habitremove="'+h.id+'" aria-label="Delete habit">'+iconSpan('x','icn-sm')+'</button>'+
+      '</div>';
     list.appendChild(row);
   });
   list.querySelectorAll('[data-habit]').forEach(function(b){ b.addEventListener('click', function(){ toggleHabitToday(b.dataset.habit); renderHabitsView(); }); });
-  list.querySelectorAll('[data-habitremove]').forEach(function(b){ b.addEventListener('click', function(){ confirmDialog('Remove habit?','This deletes the habit and its history.', function(){ deleteHabit(b.dataset.habitremove); renderHabitsView(); }); }); });
+  list.querySelectorAll('[data-habitedit]').forEach(function(b){ b.addEventListener('click', function(){ openHabitForm(b.dataset.habitedit); }); });
+  list.querySelectorAll('[data-habitremove]').forEach(function(b){ b.addEventListener('click', function(){ confirmDialog('Delete habit?','This deletes the habit and its history. This cannot be undone.', function(){ deleteHabit(b.dataset.habitremove); renderHabitsView(); }); }); });
 }
-function openHabitForm(){
+function openHabitForm(habitId){
   var overlay=document.getElementById('habitFormOverlay');
   var box=document.getElementById('habitFormBox');
-  box.innerHTML='<div class="modal-header"><h3>New Habit</h3><button class="modal-close" id="habitFormCloseBtn" aria-label="Close">'+svgIcon('x')+'</button></div>'+
+  var existing = habitId ? App.habits.find(function(h){return h.id===habitId;}) : null;
+  box.innerHTML='<div class="modal-header"><h3>'+(existing?'Edit Habit':'New Habit')+'</h3><button class="modal-close" id="habitFormCloseBtn" aria-label="Close">'+svgIcon('x')+'</button></div>'+
     '<div class="field"><label for="habitNameInput">Habit name</label><input type="text" id="habitNameInput" placeholder="e.g. Read, Exercise, Drink water"></div>'+
     '<div class="field"><label for="habitIconInput">Icon (optional emoji)</label><input type="text" id="habitIconInput" maxlength="4" placeholder="Optional"></div>'+
-    '<button class="btn primary" id="habitFormSave" style="justify-content:center">Create Habit</button>';
+    '<button class="btn primary" id="habitFormSave" style="justify-content:center">'+(existing?'Save Changes':'Create Habit')+'</button>';
+  if (existing){
+    document.getElementById('habitNameInput').value = existing.name;
+    document.getElementById('habitIconInput').value = existing.icon || '';
+  }
   overlay.hidden=false;
   document.getElementById('habitFormCloseBtn').addEventListener('click', function(){overlay.hidden=true;});
   document.getElementById('habitFormSave').addEventListener('click', function(){
     var name=document.getElementById('habitNameInput').value.trim();
     if(!name) return;
-    createHabit(name, document.getElementById('habitIconInput').value.trim());
+    var icon = document.getElementById('habitIconInput').value.trim();
+    if (existing){ updateHabit(existing.id, {name:name, icon:icon}); }
+    else { createHabit(name, icon); }
     overlay.hidden=true;
     renderCurrentView();
   });
