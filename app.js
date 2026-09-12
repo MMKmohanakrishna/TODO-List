@@ -492,6 +492,26 @@ function toggleTaskComplete(id){
   completeTask(id); return 'completed';
 }
 
+// Routes any status change (including from the Status dropdown in the task
+// details drawer) through the real completion/reopen logic whenever it
+// crosses into or out of COMPLETED, so XP, streak, completedAt, achievements
+// and recurring-task spawning always fire correctly — never a raw field patch.
+function changeTaskStatus(id, newStatus){
+  var t = findTask(id);
+  if (!t) return;
+  var wasCompleted = t.status === 'COMPLETED';
+  if (newStatus === 'COMPLETED' && !wasCompleted){
+    completeTask(id);
+    checkMissionCompletion();
+    checkGoalMilestones();
+  } else if (newStatus !== 'COMPLETED' && wasCompleted){
+    reopenTask(id);
+    if (newStatus !== 'TODO') updateTask(id, {status:newStatus});
+  } else if (newStatus !== 'COMPLETED'){
+    updateTask(id, {status:newStatus});
+  }
+}
+
 function deleteTask(id){
   var idx = App.tasks.findIndex(function(t){ return t.id === id; });
   if (idx === -1) return;
@@ -980,8 +1000,10 @@ function pickQuote(){
    ========================================================================== */
 var ROUTES = ['day','tasks','calendar','focus','habits','goals','achievements','insights','settings'];
 
+var suppressNextHashRender = false;
 function navigate(route){
   App.route = route;
+  suppressNextHashRender = true;
   location.hash = route;
   closeAllOverlays();
   renderCurrentView();
@@ -1247,7 +1269,16 @@ function openTaskDetails(taskId){
     if (inp.value.trim()){ addSubtaskToTask(t.id, inp.value); inp.value=''; refreshDetailsForTask(t.id); renderCurrentView(); }
   });
   var statusSel = document.getElementById('detailsStatusSelect');
-  if (statusSel) statusSel.addEventListener('change', function(){ updateTask(t.id,{status:statusSel.value}); renderCurrentView(); });
+  if (statusSel) statusSel.addEventListener('change', function(){
+    var wasCompleted = t.status === 'COMPLETED';
+    changeTaskStatus(t.id, statusSel.value);
+    if (!wasCompleted && statusSel.value === 'COMPLETED'){
+      var updated = findTask(t.id);
+      showCelebrationToast(truncate(updated.title,30)+' · +'+updated.xpReward+' XP'+(App.stats.streak>1?' · Streak continues':''), 'check');
+    }
+    refreshDetailsForTask(t.id);
+    renderCurrentView();
+  });
   document.getElementById('detailsNotes').addEventListener('blur', function(e){ updateTask(t.id,{notes:e.target.value}); });
 }
 
@@ -1489,7 +1520,7 @@ function buildCalendarDayCell(key, dayNum){
   cell.innerHTML = '<span class="cal-daynum">'+dayNum+'</span>'+
     '<div class="cal-chip-list">'+
       visibleChips.map(function(t){ return chipHtml(t); }).join('')+
-      (overflow>0? '<button type="button" class="cal-more-btn" data-more="1">+'+overflow+' more</button>':'')+
+      (overflow>0? '<span class="cal-more-btn">+'+overflow+' more</span>':'')+
     '</div>';
 
   cell.addEventListener('click', function(){
@@ -2140,6 +2171,7 @@ function init(){
   setInterval(checkReminders, 60000);
 
   window.addEventListener('hashchange', function(){
+    if (suppressNextHashRender){ suppressNextHashRender = false; return; }
     var r = (location.hash||'').replace('#','');
     if (ROUTES.indexOf(r)!==-1){ App.route=r; renderCurrentView(); }
   });

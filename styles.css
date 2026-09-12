@@ -801,7 +801,7 @@ label{ font-size: 0.76rem; font-weight: 600; color: var(--text-soft); }
 .task-chip .txt{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .task-chip.done{ opacity: 0.55; }
 .task-chip.done .txt{ text-decoration: line-through; }
-.cal-more-btn{ font-size: 0.65rem; color: var(--text-mute); background: none; border: none; text-align: left; padding: 0.1rem 0.35rem; }
+.cal-more-btn{ font-size: 0.65rem; color: var(--text-mute); display: inline-block; text-align: left; padding: 0.1rem 0.35rem; cursor: pointer; }
 .cal-more-btn:hover{ color: var(--primary); }
 
 /* Week view */
