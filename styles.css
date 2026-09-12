@@ -699,12 +699,18 @@ label{ font-size: 0.76rem; font-weight: 600; color: var(--text-soft); }
   width: 18px; height: 18px; border-radius: 50%;
   border: 2px solid var(--text-mute); background: none;
   display: flex; align-items: center; justify-content: center;
-  color: transparent; font-size: 0.65rem; flex-shrink: 0;
+  color: transparent; flex-shrink: 0;
 }
+.subtask-check svg{ width: 11px; height: 11px; stroke-width: 3; }
 .subtask-row.done .subtask-check{ border-color: var(--success); background: var(--success); color: #fff; }
 .subtask-row.done span{ text-decoration: line-through; color: var(--text-soft); }
-.subtask-remove{ background: none; border: none; color: var(--text-mute); font-size: 0.85rem; }
-.subtask-remove:hover{ color: var(--danger); }
+.subtask-remove{
+  background: none; border: none; color: var(--text-mute);
+  display: flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0;
+}
+.subtask-remove svg{ width: 13px; height: 13px; }
+.subtask-remove:hover{ color: var(--danger); background: var(--danger-tint); }
 
 .detail-row{ display: flex; justify-content: space-between; gap: 1rem; font-size: 0.86rem; padding: 0.35rem 0; border-bottom: 1px solid var(--border); }
 .detail-row:last-child{ border-bottom: none; }
