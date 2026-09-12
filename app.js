@@ -56,7 +56,7 @@ function iconSpan(name, cls){
 }
 
 /* ==========================================================================
-   Momentum OS — constants
+   TODO LIST — constants
    ========================================================================== */
 var STORAGE_KEYS = {
   tasks: 'personal-todo-v2',
@@ -99,7 +99,7 @@ var XP_VALUES = { DAILY_MISSION: 75, FOCUS_SESSION: 25, GOAL_MILESTONE: 100 };
 
 var LEVELS = [
   {level:1, name:'Getting Started', min:0},
-  {level:2, name:'Building Momentum', min:150},
+  {level:2, name:'Building ]TODO', min:150},
   {level:3, name:'Consistent', min:400},
   {level:4, name:'Focused', min:800},
   {level:5, name:'Highly Productive', min:1500},
@@ -128,7 +128,7 @@ var QUOTES = [
  "Focus on being productive instead of busy.",
  "You don't have to be great to start, but you have to start to be great.",
  "One task at a time.",
- "Momentum is built one small win at a time."
+ "TODO is built one small win at a time."
 ];
 
 var FOCUS_PRESETS = [{label:'25 / 5', focus:25},{label:'50 / 10',focus:50},{label:'90 / 15',focus:90}];
@@ -1296,7 +1296,7 @@ function renderDayView(){
   var missionDone = mp.done >= mp.target;
 
   view.innerHTML =
-   '<div class="greeting-card"><h1>'+greetingWord()+', Mohana</h1>'+
+   '<div class="greeting-card"><h1>'+greetingWord()+', Mohana Krishna</h1>'+
     '<p class="greeting-sub">Small steps today, big results tomorrow.</p>'+
     '<p class="greeting-quote">"'+pickQuote()+'"</p></div>'+
    '<div class="stat-grid">'+
@@ -1900,7 +1900,7 @@ function renderSettingsView(){
   view.innerHTML =
     '<div class="section-heading"><h2>Settings</h2></div>'+
     '<div class="settings-group">'+
-      '<div class="settings-row"><div><div class="t">Theme</div><div class="d">Choose how Momentum OS looks.</div></div>'+
+      '<div class="settings-row"><div><div class="t">Theme</div><div class="d">Choose how TODO LIST looks.</div></div>'+
         '<div class="theme-toggle" id="themeToggleGroup">'+
           ['system','light','dark'].map(function(t){return '<button type="button" data-theme-choice="'+t+'" aria-pressed="'+(App.settings.theme===t)+'">'+t.charAt(0).toUpperCase()+t.slice(1)+'</button>';}).join('')+
         '</div></div>'+
