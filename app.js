@@ -2028,16 +2028,26 @@ function wireGlobalEvents(){
   document.getElementById('taskForm').addEventListener('submit', function(e){
     e.preventDefault();
     var title = document.getElementById('taskTitleInput').value.trim();
+    var category = document.getElementById('taskCategorySelect').value;
+    var priority = document.getElementById('taskPrioritySelect').value;
+    var dueDate = document.getElementById('taskDueDate').value;
+    var dueTime = document.getElementById('taskDueTime').value;
     var errEl = document.getElementById('taskFormError');
-    if (!title){ errEl.classList.add('visible'); errEl.textContent='Please give this task a title.'; return; }
+    var missing =
+      !title ? 'Please give this task a title.' :
+      !category ? 'Please choose a category.' :
+      !priority ? 'Please choose a priority.' :
+      !dueDate ? 'Please set a due date.' :
+      !dueTime ? 'Please set a due time.' : null;
+    if (missing){ errEl.classList.add('visible'); errEl.textContent = missing; return; }
     errEl.classList.remove('visible');
     var data = {
       title: title,
       description: document.getElementById('taskDescInput').value,
-      category: document.getElementById('taskCategorySelect').value,
-      priority: document.getElementById('taskPrioritySelect').value,
-      dueDate: document.getElementById('taskDueDate').value || null,
-      dueTime: document.getElementById('taskDueTime').value || null,
+      category: category,
+      priority: priority,
+      dueDate: dueDate || null,
+      dueTime: dueTime || null,
       estimatedDuration: document.getElementById('taskEstDuration').value || null,
       recurring: document.getElementById('taskRecurringSelect').value || null,
       goalId: document.getElementById('taskGoalSelect').value || null,

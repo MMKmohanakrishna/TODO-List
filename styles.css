@@ -376,6 +376,7 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover{
   background: var(--surface-2);
 }
 label{ font-size: 0.76rem; font-weight: 600; color: var(--text-soft); }
+.req-mark{ color: var(--danger); }
 .field{ display: flex; flex-direction: column; gap: 0.3rem; }
 .field-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
 
