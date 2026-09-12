@@ -1,0 +1,200 @@
+<meta charset="UTF-8">
+<title>Momentum OS</title>
+<meta name="description" content="A personal productivity command center — tasks, habits, goals, focus sessions, and progress in one calm workspace.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">Momentum OS</div>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-name">Mohana Krishna</div>
+      <div class="profile-tag">Focus &middot; Learn &middot; Improve</div>
+      <div class="profile-level">
+        <span id="sbLevelName">Level 1 &middot; Getting Started</span>
+        <span id="sbXpText">0 / 150</span>
+      </div>
+      <div class="profile-xpbar"><span id="sbXpFill"></span></div>
+    </div>
+
+    <nav class="nav" aria-label="Main">
+      <button class="nav-item" data-route="day"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span> My Day</button>
+      <button class="nav-item" data-route="tasks"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span> Tasks <span class="nav-count" id="navTaskCount">0</span></button>
+      <button class="nav-item" data-route="calendar"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg></span> Calendar</button>
+      <button class="nav-item" data-route="focus"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg></span> Focus</button>
+      <button class="nav-item" data-route="habits"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></span> Habits</button>
+      <button class="nav-item" data-route="goals"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> Goals</button>
+      <button class="nav-item" data-route="achievements"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span> Achievements</button>
+      <button class="nav-item" data-route="insights"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18v3"/><path d="M8 14v7"/></svg></span> Insights</button>
+      <button class="nav-item" data-route="settings"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span> Settings</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="shortcut-hint">N new &middot; / search &middot; F focus &middot; C calendar &middot; G goals &middot; H habits</span>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="search-wrap">
+        <span class="search-icon icn icn-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+        <input type="text" id="globalSearch" placeholder="Search tasks, notes, or anything...">
+        <span class="search-kbd">/</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme"><span class="icn icn-md" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span></button>
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+          <span class="icn icn-md" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg></span>
+          <span class="badge-dot" id="notifDot" hidden></span>
+        </button>
+        <button class="avatar" id="avatarBtn" aria-label="Profile and settings" title="Settings">MK</button>
+      </div>
+    </header>
+
+    <div class="notif-panel" id="notifPanel" hidden role="menu" aria-label="Notifications"></div>
+
+    <main>
+      <section class="view" id="view-day"></section>
+      <section class="view" id="view-tasks" hidden></section>
+      <section class="view" id="view-calendar" hidden></section>
+      <section class="view" id="view-focus" hidden></section>
+      <section class="view" id="view-habits" hidden></section>
+      <section class="view" id="view-goals" hidden></section>
+      <section class="view" id="view-achievements" hidden></section>
+      <section class="view" id="view-insights" hidden></section>
+      <section class="view" id="view-settings" hidden></section>
+    </main>
+  </div>
+</div>
+
+<button class="fab" id="fabAdd" aria-label="Add task"><span class="icn icn-lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span></button>
+
+<nav class="bottom-nav" aria-label="Primary">
+  <div class="bottom-nav-inner">
+    <button class="bn-item" data-route="day"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>My Day</button>
+    <button class="bn-item" data-route="tasks"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg></span>Tasks</button>
+    <button class="bn-item" data-route="calendar"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg></span>Calendar</button>
+    <button class="bn-item" data-route="goals"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>Goals</button>
+    <button class="bn-item" id="moreNavBtn" aria-haspopup="true" aria-expanded="false"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></span>More</button>
+  </div>
+</nav>
+
+<div class="overlay sheet-scrim" id="moreSheetOverlay" hidden>
+  <div class="bottom-sheet" id="moreSheetBox" role="dialog" aria-modal="true" aria-label="More sections">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <button class="sheet-item" data-route="focus"><span class="icn icn-lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg></span>Focus</button>
+    <button class="sheet-item" data-route="habits"><span class="icn icn-lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></span>Habits</button>
+    <button class="sheet-item" data-route="achievements"><span class="icn icn-lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>Achievements</button>
+    <button class="sheet-item" data-route="insights"><span class="icn icn-lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18v3"/><path d="M8 14v7"/></svg></span>Insights</button>
+    <button class="sheet-item" data-route="settings"><span class="icn icn-lg" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span>Settings</button>
+  </div>
+</div>
+
+<!-- Task composer -->
+<div class="overlay" id="taskFormOverlay" hidden>
+  <div class="drawer" id="taskFormDrawer" role="dialog" aria-modal="true" aria-labelledby="taskFormHeading">
+    <div class="drawer-header">
+      <h2 id="taskFormHeading">New Task</h2>
+      <button class="drawer-close" id="taskFormClose" aria-label="Close"><span class="icn icn-md" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></button>
+    </div>
+    <form id="taskForm">
+      <input type="hidden" id="taskFormId">
+      <div class="field field-mb">
+        <label for="taskTitleInput">Task title</label>
+        <input type="text" id="taskTitleInput" required maxlength="140" placeholder="e.g. Revise Unit 1 notes">
+      </div>
+      <div class="field field-mb">
+        <label for="taskDescInput">Description</label>
+        <textarea id="taskDescInput" rows="2" placeholder="Optional details"></textarea>
+      </div>
+      <div class="field-row field-mb">
+        <div class="field">
+          <label for="taskCategorySelect">Category</label>
+          <select id="taskCategorySelect"></select>
+        </div>
+        <div class="field">
+          <label for="taskPrioritySelect">Priority</label>
+          <select id="taskPrioritySelect">
+            <option value="LOW">Low</option>
+            <option value="MEDIUM" selected>Medium</option>
+            <option value="HIGH">High</option>
+            <option value="URGENT">Urgent</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row field-mb">
+        <div class="field">
+          <label for="taskDueDate">Due date</label>
+          <input type="date" id="taskDueDate">
+        </div>
+        <div class="field">
+          <label for="taskDueTime">Due time</label>
+          <input type="time" id="taskDueTime">
+        </div>
+      </div>
+      <div class="field-row field-mb">
+        <div class="field">
+          <label for="taskEstDuration">Estimated duration (min)</label>
+          <input type="number" id="taskEstDuration" min="0" step="5" placeholder="e.g. 45">
+        </div>
+        <div class="field">
+          <label for="taskRecurringSelect">Recurring</label>
+          <select id="taskRecurringSelect">
+            <option value="">None</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </div>
+      </div>
+      <div class="field field-mb">
+        <label for="taskGoalSelect">Goal (optional)</label>
+        <select id="taskGoalSelect"><option value="">No goal</option></select>
+      </div>
+      <div class="field field-mb">
+        <label for="taskTagsInput">Tags</label>
+        <input type="text" id="taskTagsInput" placeholder="college, deep-learning, urgent">
+      </div>
+      <div class="field field-mb-lg">
+        <label>Subtasks</label>
+        <div id="taskSubtasksBuilder"></div>
+        <div class="subtask-add-row">
+          <input type="text" id="newSubtaskInput" placeholder="Add a subtask">
+          <button type="button" class="btn ghost" id="addSubtaskBtn">Add</button>
+        </div>
+      </div>
+      <div id="taskFormError" class="detail-row form-error"></div>
+      <button type="submit" class="btn primary btn-block" id="taskFormSubmit">+ Add Task</button>
+    </form>
+  </div>
+</div>
+
+<!-- Task details drawer -->
+<div class="overlay" id="taskDetailsOverlay" hidden>
+  <div class="drawer" id="taskDetailsDrawer" role="dialog" aria-modal="true" aria-label="Task details"></div>
+</div>
+
+<!-- Habit form -->
+<div class="overlay center" id="habitFormOverlay" hidden>
+  <div class="modal-box" id="habitFormBox" role="dialog" aria-modal="true" aria-label="New habit"></div>
+</div>
+
+<!-- Goal form -->
+<div class="overlay center" id="goalFormOverlay" hidden>
+  <div class="modal-box" id="goalFormBox" role="dialog" aria-modal="true" aria-label="New goal"></div>
+</div>
+
+<!-- Generic confirm -->
+<div class="overlay center" id="confirmOverlay" hidden>
+  <div class="modal-box" id="confirmBox" role="alertdialog" aria-modal="true"></div>
+</div>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+<div class="levelup-overlay" id="levelUpOverlay" hidden></div>
+
+<script src="app.js"></script>
