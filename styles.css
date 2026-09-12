@@ -947,6 +947,7 @@ label{ font-size: 0.76rem; font-weight: 600; color: var(--text-soft); }
 .goal-pct{ font-size: 0.78rem; font-weight: 700; color: var(--primary); font-family: "IBM Plex Mono", monospace; }
 .goal-foot{ display: flex; gap: 1rem; font-size: 0.76rem; color: var(--text-soft); }
 .goal-foot b{ color: var(--text); }
+.goal-card.archived{ opacity: 0.7; }
 
 /* ==========================================================================
    Achievements

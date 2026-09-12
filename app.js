@@ -254,6 +254,7 @@ var App = {
     calendarViewMode: 'month',
     calendarCategoryFilter: null,
     calendarShowCompleted: true,
+    goalsView: 'active',
     focusPrefillTaskId: null,
     notifiedDueSoon: {},
     notifiedOverdue: {},
@@ -751,6 +752,7 @@ function checkGoalMilestones(){
   persistGoals();
 }
 function archiveGoal(id){ var g=App.goals.find(function(x){return x.id===id;}); if(g){g.archived=true; persistGoals();} }
+function unarchiveGoal(id){ var g=App.goals.find(function(x){return x.id===id;}); if(g){g.archived=false; persistGoals();} }
 function deleteGoal(id){ App.goals = App.goals.filter(function(g){return g.id!==id;}); persistGoals(); }
 
 /* ==========================================================================
@@ -1759,23 +1761,45 @@ function openHabitForm(habitId){
    ========================================================================== */
 function renderGoalsView(){
   var view = document.getElementById('view-goals');
-  var active = App.goals.filter(function(g){return !g.archived;});
-  view.innerHTML = '<div class="section-heading"><h2>Goals</h2><button class="btn primary" id="addGoalBtn">+ New Goal</button></div><div id="goalsList" style="display:flex;flex-direction:column;gap:0.7rem;"></div>';
+  var archivedCount = App.goals.filter(function(g){return g.archived;}).length;
+  view.innerHTML =
+    '<div class="section-heading"><h2>Goals</h2><button class="btn primary" id="addGoalBtn">+ New Goal</button></div>'+
+    '<div class="filter-row" id="goalsTabRow">'+
+      '<button type="button" class="chip" data-goalsview="active" aria-pressed="'+(App.ui.goalsView==='active')+'">Active</button>'+
+      '<button type="button" class="chip" data-goalsview="archived" aria-pressed="'+(App.ui.goalsView==='archived')+'">Archived<span class="nav-count" style="margin-left:0.4rem">'+archivedCount+'</span></button>'+
+    '</div>'+
+    '<div id="goalsList" style="display:flex;flex-direction:column;gap:0.7rem;"></div>';
   document.getElementById('addGoalBtn').addEventListener('click', openGoalForm);
+  document.querySelectorAll('#goalsTabRow [data-goalsview]').forEach(function(b){
+    b.addEventListener('click', function(){ App.ui.goalsView = b.dataset.goalsview; renderGoalsView(); });
+  });
+
+  var showingArchived = App.ui.goalsView==='archived';
+  var goals = App.goals.filter(function(g){ return showingArchived ? g.archived : !g.archived; });
   var list = document.getElementById('goalsList');
-  if (!active.length){ list.appendChild(emptyStateEl('target','No goals yet.','Create a goal and link tasks to it to track progress.')); return; }
-  active.forEach(function(g){
+  if (!goals.length){
+    if (showingArchived) list.appendChild(emptyStateEl('target','No archived goals.','Goals you archive will show up here.'));
+    else list.appendChild(emptyStateEl('target','No goals yet.','Create a goal and link tasks to it to track progress.'));
+    return;
+  }
+  goals.forEach(function(g){
     var p = goalProgress(g.id);
-    var card=document.createElement('div'); card.className='goal-card';
+    var card=document.createElement('div'); card.className='goal-card'+(g.archived?' archived':'');
     card.innerHTML = '<div class="goal-top"><div><div class="goal-title">'+escapeHtml(g.title)+'</div>'+
       (g.targetDate? '<div class="goal-target">Target: '+new Date(g.targetDate+'T00:00:00').toLocaleDateString(undefined,{month:'long',day:'numeric'})+'</div>':'')+
       '</div><span class="goal-pct">'+p.pct+'%</span></div>'+
       '<div class="progress-bar"><span style="width:'+p.pct+'%"></span></div>'+
       '<div class="goal-foot"><span><b>'+p.total+'</b> Tasks</span><span><b>'+p.done+'</b> Completed</span><span><b>'+(p.total-p.done)+'</b> Remaining</span></div>'+
-      '<div class="detail-actions"><button type="button" class="btn ghost" data-archive="'+g.id+'">Archive</button><button type="button" class="btn danger" data-delete="'+g.id+'">Delete</button></div>';
+      '<div class="detail-actions">'+
+        (g.archived
+          ? '<button type="button" class="btn ghost" data-unarchive="'+g.id+'">Unarchive</button>'
+          : '<button type="button" class="btn ghost" data-archive="'+g.id+'">Archive</button>')+
+        '<button type="button" class="btn danger" data-delete="'+g.id+'">Delete</button>'+
+      '</div>';
     list.appendChild(card);
   });
   list.querySelectorAll('[data-archive]').forEach(function(b){ b.addEventListener('click', function(){ archiveGoal(b.dataset.archive); renderGoalsView(); }); });
+  list.querySelectorAll('[data-unarchive]').forEach(function(b){ b.addEventListener('click', function(){ unarchiveGoal(b.dataset.unarchive); renderGoalsView(); }); });
   list.querySelectorAll('[data-delete]').forEach(function(b){ b.addEventListener('click', function(){ confirmDialog('Delete goal?','This does not delete linked tasks, only the goal.', function(){ deleteGoal(b.dataset.delete); renderGoalsView(); }); }); });
 }
 function openGoalForm(){
